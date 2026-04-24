@@ -3,19 +3,7 @@
 import React from "react";
 import { X, User, Mail, Phone, Building2, Calendar, Target, FileText, DollarSign, ExternalLink } from "lucide-react";
 
-interface Lead {
-  _id: string;
-  leadId?: number;
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  status: string;
-  source: string;
-  value: number;
-  notes?: string;
-  createdAt: string;
-}
+import { Lead } from "../types";
 
 interface LeadDetailsModalProps {
   isOpen: boolean;
@@ -73,7 +61,7 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
                   {status.label}
                 </span>
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                  ID: #{lead.leadId || lead._id.slice(-4).toUpperCase()}
+                  ID: #{lead.leadId || lead._id?.slice(-4).toUpperCase() || 'TEMP'}
                 </span>
               </div>
             </div>
@@ -141,14 +129,15 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
                   <div className="flex-1 overflow-hidden">
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Inquiry Date</p>
                     <p className="text-sm font-bold text-slate-700">
-                      {new Date(lead.createdAt).toLocaleDateString(undefined, { 
+                      {lead.createdAt ? new Date(lead.createdAt).toLocaleDateString(undefined, { 
                         year: 'numeric', month: 'long', day: 'numeric' 
-                      })}
+                      }) : "Date unknown"}
                     </p>
                   </div>
                 </div>
               </div>
             </div>
+
 
             {/* Notes Section */}
             <div className="col-span-2 space-y-4">

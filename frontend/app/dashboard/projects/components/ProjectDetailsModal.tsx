@@ -34,10 +34,19 @@ const STATUS_CONFIG: Record<string, { color: string, label: string, icon: any }>
 };
 
 export default function ProjectDetailsModal({ isOpen, onClose, project }: ProjectDetailsModalProps) {
+  const progressRef = React.useRef<HTMLDivElement>(null);
+  
   if (!isOpen || !project) return null;
 
   const status = STATUS_CONFIG[project.status] || STATUS_CONFIG.ongoing;
   const progress = project.totalAmount > 0 ? (project.advancePaid / project.totalAmount) * 100 : 0;
+
+  // Set progress width via ref to avoid inline style warnings
+  React.useEffect(() => {
+    if (progressRef.current) {
+      progressRef.current.style.width = `${progress}%`;
+    }
+  }, [progress, isOpen]);
 
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
@@ -47,7 +56,7 @@ export default function ProjectDetailsModal({ isOpen, onClose, project }: Projec
         {/* Header Section */}
         <div className="relative h-40 bg-indigo-600 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-transparent" />
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+          <div className="absolute inset-0 opacity-10 bg-blueprint" />
           
           <div className="absolute top-6 right-6">
             <button 
@@ -129,7 +138,10 @@ export default function ProjectDetailsModal({ isOpen, onClose, project }: Projec
                       <span className="text-white">${project.advancePaid.toLocaleString()}</span>
                     </div>
                     <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                      <div className="bg-emerald-400 h-full rounded-full transition-all duration-1000" style={{ width: `${progress}%` }} />
+                      <div 
+                        ref={progressRef}
+                        className="bg-emerald-400 h-full rounded-full transition-all duration-1000" 
+                      />
                     </div>
                     <div className="text-right text-[9px] font-black text-emerald-400 uppercase tracking-widest">
                       {Math.round(progress)}% Realized

@@ -9,17 +9,7 @@ import { toast } from "sonner";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
-interface Lead {
-  _id?: string;
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  status: string;
-  source: string;
-  value: number;
-  notes?: string;
-}
+import { Lead } from "../types";
 
 interface LeadFormModalProps {
   isOpen: boolean;

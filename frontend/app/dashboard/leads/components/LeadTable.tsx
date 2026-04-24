@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Mail, Phone, Building2, Pencil, Trash2, Briefcase, Eye } from "lucide-react";
+import { Mail, Phone, Pencil, Trash2, Briefcase, Eye } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { apiFetch } from "../../../store/authStore";
@@ -10,24 +10,14 @@ import { TableRowSkeleton } from "../../components/Skeleton";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
-interface Lead {
-  _id: string;
-  leadId?: number;
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  status: string;
-  source: string;
-  value: number;
-  notes?: string;
-}
+import { Lead } from "../types";
 
 interface LeadTableProps {
   leads: Lead[];
   loading: boolean;
   onEdit: (lead: Lead) => void;
   onDelete: (id: string) => void;
+  onView: (lead: Lead) => void;
 }
 
 const STATUS_OPTIONS = [
@@ -39,7 +29,7 @@ const STATUS_OPTIONS = [
   { value: "closed_lost", label: "Closed Lost", color: "bg-rose-50 text-rose-700 border-rose-100" },
 ];
 
-export default function LeadTable({ leads, loading, onEdit, onDelete }: LeadTableProps) {
+export default function LeadTable({ leads, loading, onEdit, onDelete, onView }: LeadTableProps) {
   const queryClient = useQueryClient();
 
   const updateStatusMutation = useMutation({
@@ -67,7 +57,7 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }: LeadTabl
         <table className="w-full">
           <tbody className="divide-y divide-slate-100">
             {[...Array(5)].map((_, i) => (
-              <TableRowSkeleton key={i} columns={6} />
+              <TableRowSkeleton key={i} columns={4} />
             ))}
           </tbody>
         </table>
@@ -83,15 +73,13 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }: LeadTabl
             <tr className="bg-slate-50/50 border-b border-slate-200">
               <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-20">ID</th>
               <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Lead Info</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Company</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Value</th>
               <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
               <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {leads.map((lead) => (
-              <tr key={lead._id} className="hover:bg-slate-50/50 transition-colors group">
+              <tr key={lead._id!} className="hover:bg-slate-50/50 transition-colors group">
                 <td className="px-6 py-4">
                   <span className="text-xs font-bold text-slate-400">#{lead.leadId || '—'}</span>
                 </td>
@@ -118,25 +106,10 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }: LeadTabl
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  {lead.company ? (
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400">
-                        <Building2 size={12} />
-                      </div>
-                      <span className="text-sm font-semibold text-slate-600">{lead.company}</span>
-                    </div>
-                  ) : (
-                    <span className="text-sm text-slate-300 font-medium">—</span>
-                  )}
-                </td>
-                <td className="px-6 py-4">
-                  <span className="text-sm font-bold text-slate-900">${lead.value?.toLocaleString() || '0'}</span>
-                </td>
-                <td className="px-6 py-4">
                   <select
                     title="Change Status"
                     value={lead.status}
-                    onChange={(e) => updateStatusMutation.mutate({ id: lead._id, status: e.target.value })}
+                    onChange={(e) => updateStatusMutation.mutate({ id: lead._id!, status: e.target.value })}
                     disabled={updateStatusMutation.isPending}
                     className={`px-4 py-1.5 text-[11px] font-bold rounded-full border uppercase tracking-wider outline-none cursor-pointer transition-all min-w-[130px] text-center ${
                       STATUS_OPTIONS.find(o => o.value === lead.status)?.color || "bg-slate-50 border-slate-100"
@@ -160,7 +133,7 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }: LeadTabl
                       </button>
                       {(lead.status === 'closed_won' || lead.status === 'qualified') && (
                         <Link
-                          href={`/dashboard/projects?leadId=${lead._id}`}
+                          href={`/dashboard/projects?leadId=${lead._id!}`}
                           title="Convert to Project"
                           className="p-2 hover:bg-white hover:text-emerald-600 hover:shadow-sm rounded-lg transition-all text-slate-400"
                         >
@@ -175,7 +148,7 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }: LeadTabl
                         <Pencil size={16} />
                       </button>
                       <button 
-                        onClick={() => onDelete(lead._id)} 
+                        onClick={() => onDelete(lead._id!)} 
                         title="Delete Lead"
                         className="p-2 hover:bg-white hover:text-rose-600 hover:shadow-sm rounded-lg transition-all text-slate-400"
                       >
