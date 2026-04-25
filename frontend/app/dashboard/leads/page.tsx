@@ -98,14 +98,14 @@ export default function LeadsPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Lead Pipeline</h1>
-          <p className="text-sm text-slate-500 font-medium">Manage and track your customer acquisition process.</p>
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight uppercase">Leads</h1>
+          <p className="text-sm text-slate-500 font-medium mt-1 uppercase tracking-wider">Manage and track your customer acquisition process</p>
         </div>
         <button
           onClick={openCreate}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 rounded-lg text-sm font-semibold text-white hover:bg-indigo-700 transition-all shadow-sm shadow-indigo-200"
+          className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-100"
         >
-          <Plus size={16} />
+          <Plus size={18} />
           Add New Lead
         </button>
       </div>

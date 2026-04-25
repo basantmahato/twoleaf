@@ -18,7 +18,7 @@ const getLeads = async (req, res) => {
   try {
     const { status, source, search, page = 1, limit = 10 } = req.query;
 
-    const filter = {};
+    const filter = { isDeleted: false };
     if (status) filter.status = status;
     if (source) filter.source = source;
     if (search) filter.$text = { $search: search };
@@ -49,7 +49,7 @@ const getLeads = async (req, res) => {
 // ── GET /api/leads/:id ─────────────────────────────────────────
 const getLeadById = async (req, res) => {
   try {
-    const lead = await Lead.findById(req.params.id)
+    const lead = await Lead.findOne({ _id: req.params.id, isDeleted: false })
       .populate("createdBy", "name email")
       .populate("assignedTo", "name email");
 
@@ -64,10 +64,10 @@ const getLeadById = async (req, res) => {
 // ── PUT /api/leads/:id ─────────────────────────────────────────
 const updateLead = async (req, res) => {
   try {
-    const lead = await Lead.findById(req.params.id);
+    const lead = await Lead.findOne({ _id: req.params.id, isDeleted: false });
     if (!lead) return res.status(404).json({ success: false, message: "Lead not found" });
 
-    const updated = await Lead.findByIdAndUpdate(req.params.id, req.body, {
+    const updated = await Lead.findOneAndUpdate({ _id: req.params.id, isDeleted: false }, req.body, {
       new: true,
       runValidators: true,
     });
@@ -81,9 +81,13 @@ const updateLead = async (req, res) => {
 // ── DELETE /api/leads/:id (admin/manager only) ─────────────────
 const deleteLead = async (req, res) => {
   try {
-    const lead = await Lead.findByIdAndDelete(req.params.id);
+    const lead = await Lead.findOneAndUpdate(
+      { _id: req.params.id, isDeleted: false },
+      { isDeleted: true, deletedAt: new Date() },
+      { new: true }
+    );
     if (!lead) return res.status(404).json({ success: false, message: "Lead not found" });
-    res.status(200).json({ success: true, message: "Lead deleted" });
+    res.status(200).json({ success: true, message: "Lead moved to trash" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -93,6 +97,7 @@ const deleteLead = async (req, res) => {
 const getLeadStats = async (req, res) => {
   try {
     const stats = await Lead.aggregate([
+      { $match: { isDeleted: false } },
       {
         $group: {
           _id: "$status",

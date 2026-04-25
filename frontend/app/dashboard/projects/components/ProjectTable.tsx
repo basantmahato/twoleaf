@@ -29,6 +29,7 @@ interface ProjectTableProps {
   projects: Project[];
   loading: boolean;
   onEdit: (project: Project) => void;
+  onView: (project: Project) => void;
 }
 
 const STATUS_COLORS: Record<string, string> = {

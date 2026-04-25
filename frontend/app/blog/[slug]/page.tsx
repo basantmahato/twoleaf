@@ -73,25 +73,25 @@ export default function BlogDetail() {
             />
           </div>
 
-          <section className="max-w-none space-y-8 text-slate-700 leading-relaxed font-medium">
+          <section className="max-w-none space-y-6 text-slate-600 leading-relaxed font-normal">
             {blog.content.split('\n\n').map((paragraph, index) => {
               if (paragraph.startsWith('### ')) {
                 return (
-                  <h3 key={index} className="text-2xl font-bold uppercase tracking-tight text-slate-900 pt-8 first:pt-0">
+                  <h3 key={index} className="text-xl font-bold uppercase tracking-tight text-slate-900 pt-6 first:pt-0">
                     {paragraph.replace('### ', '')}
                   </h3>
                 );
               }
               if (paragraph.startsWith('- ')) {
                 return (
-                  <ul key={index} className="list-disc pl-6 space-y-4">
+                  <ul key={index} className="list-disc pl-6 space-y-3">
                     {paragraph.split('\n').map((item, i) => (
-                      <li key={i} className="pl-2">{item.replace('- ', '')}</li>
+                      <li key={i} className="pl-2 text-sm">{item.replace('- ', '')}</li>
                     ))}
                   </ul>
                 );
               }
-              return <p key={index} className="text-lg">{paragraph}</p>;
+              return <p key={index} className="text-sm">{paragraph}</p>;
             })}
           </section>
 

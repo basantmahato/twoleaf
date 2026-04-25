@@ -45,7 +45,7 @@ export default function RootLayout({
       >
         <Providers>
           {children}
-          <FloatingCTA />
+          {/* <FloatingCTA /> */}
           <Toaster position="top-center" richColors />
         </Providers>
       </body>

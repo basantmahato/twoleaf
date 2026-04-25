@@ -48,7 +48,7 @@ export default function BlogListing() {
                     <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors leading-tight mb-2">
                       {blog.title}
                     </h2>
-                    <p className="text-slate-500 font-medium line-clamp-2">
+                    <p className="text-slate-500 font-normal text-sm line-clamp-2">
                       {blog.subtitle}
                     </p>
                   </div>

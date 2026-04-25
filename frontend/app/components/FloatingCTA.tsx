@@ -2,10 +2,17 @@
 
 import React from "react";
 import { Mail, MessageCircle } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function FloatingCTA() {
+  const pathname = usePathname();
   const whatsappNumber = "918002213907"; // Placeholder: update with real number
   const email = "twoleafservices@gmail.com";
+
+  // Hide CTA on login and dashboard routes
+  if (pathname === "/login" || pathname?.startsWith("/dashboard")) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-8 right-8 z-[100] flex flex-col gap-4">
@@ -14,7 +21,7 @@ export default function FloatingCTA() {
         href={`https://wa.me/${whatsappNumber}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 active:scale-95"
+        className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg"
         title="Chat on WhatsApp"
       >
         <MessageCircle size={28} fill="white" />
@@ -26,7 +33,7 @@ export default function FloatingCTA() {
       {/* Mail CTA */}
       <a
         href={`mailto:${email}`}
-        className="group relative flex items-center justify-center w-14 h-14 bg-black text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 active:scale-95"
+        className="group relative flex items-center justify-center w-14 h-14 bg-black text-white rounded-full shadow-lg"
         title="Send an Email"
       >
         <Mail size={24} />

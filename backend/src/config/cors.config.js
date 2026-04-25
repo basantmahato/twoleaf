@@ -15,7 +15,7 @@ const corsOptions = {
     // Allow requests with no origin (curl, Postman, mobile apps, SSR)
     if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.includes(origin) || origin.startsWith('http://192.168.')) {
       return callback(null, true);
     }
     callback(new Error(`CORS policy: origin '${origin}' is not allowed`));

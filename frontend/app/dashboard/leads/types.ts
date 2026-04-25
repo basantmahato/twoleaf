@@ -9,5 +9,6 @@ export interface Lead {
   source: string;
   value: number;
   notes?: string;
+  projectId?: string;
   createdAt?: string;
 }

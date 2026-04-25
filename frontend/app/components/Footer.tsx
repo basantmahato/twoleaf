@@ -25,12 +25,18 @@ export default function Footer() {
           <Link href="/terms" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">
             Terms
           </Link>
-          <Link href="https://twitter.com" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">
+          {/* <Link href="https://twitter.com" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">
             Twitter
-          </Link>
-          <Link href="https://linkedin.com" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">
+          </Link> */}
+          {/* <Link href="https://linkedin.com" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">
             LinkedIn
+          </Link> */}
+
+          <Link href="https://instagram.com/twoleafservices" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">
+            Instagram
           </Link>
+
+          
         </div>
         <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
           © {new Date().getFullYear()} TWOLEAF DIGITAL. ALL RIGHTS RESERVED.

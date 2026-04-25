@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Mail, Phone, Pencil, Trash2, Briefcase, Eye } from "lucide-react";
+import { Mail, Phone, Pencil, Trash2, Eye, Briefcase } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { apiFetch } from "../../../store/authStore";
 import { toast } from "sonner";
 import { TableRowSkeleton } from "../../components/Skeleton";
@@ -31,6 +32,7 @@ const STATUS_OPTIONS = [
 
 export default function LeadTable({ leads, loading, onEdit, onDelete, onView }: LeadTableProps) {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string, status: string }) => {
@@ -131,14 +133,14 @@ export default function LeadTable({ leads, loading, onEdit, onDelete, onView }: 
                       >
                         <Eye size={16} />
                       </button>
-                      {(lead.status === 'closed_won' || lead.status === 'qualified') && (
-                        <Link
-                          href={`/dashboard/projects?leadId=${lead._id!}`}
+                      {lead.status !== 'closed_won' && !lead.projectId && (
+                        <button 
+                          onClick={() => router.push(`/dashboard/projects?leadId=${lead._id}`)}
                           title="Convert to Project"
                           className="p-2 hover:bg-white hover:text-emerald-600 hover:shadow-sm rounded-lg transition-all text-slate-400"
                         >
                           <Briefcase size={16} />
-                        </Link>
+                        </button>
                       )}
                       <button 
                         onClick={() => onEdit(lead as any)} 

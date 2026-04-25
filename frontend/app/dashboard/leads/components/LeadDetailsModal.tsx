@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { X, User, Mail, Phone, Building2, Calendar, Target, FileText, DollarSign, ExternalLink } from "lucide-react";
+import { X, User, Mail, Phone, Building2, Calendar, Target, FileText, DollarSign, ExternalLink, Briefcase } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Lead } from "../types";
 
@@ -21,9 +22,15 @@ const STATUS_CONFIG: Record<string, { color: string, label: string }> = {
 };
 
 export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsModalProps) {
+  const router = useRouter();
   if (!isOpen || !lead) return null;
 
   const status = STATUS_CONFIG[lead.status] || STATUS_CONFIG.new;
+
+  const handleConvertToProject = () => {
+    router.push(`/dashboard/projects?leadId=${lead._id}`);
+    onClose();
+  };
 
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
@@ -154,6 +161,15 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
 
           {/* Action Footer */}
           <div className="pt-4 flex gap-4">
+            {lead.status !== 'closed_won' && !lead.projectId && (
+              <button 
+                onClick={handleConvertToProject}
+                className="flex-1 bg-indigo-600 text-white py-4 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2"
+              >
+                <Briefcase size={16} />
+                Convert to Project
+              </button>
+            )}
             <button 
               onClick={onClose}
               className="flex-1 bg-slate-900 text-white py-4 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 flex items-center justify-center gap-2"
