@@ -5,6 +5,7 @@
  */
 
 const allowedOrigins = [
+  "https://www.twoleafservices.com/",        // Vite dev
   "http://localhost:3000",        // Next.js dev
   "http://localhost:3001",        // Alt dev port
   process.env.CLIENT_URL,        // Production frontend (set in .env)
