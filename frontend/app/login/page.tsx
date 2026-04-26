@@ -56,7 +56,7 @@ export default function LoginPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-white border-2 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <div className="bg-white border-2 border-black p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Error banner */}
             {error && (
