@@ -6,7 +6,7 @@ import React from "react";
 export default function About() {
   return (
     <section
-      className="py-32 px-8 md:px-12 bg-black text-white"
+      className="py-32 px-8 md:px-12 bg-white"
       data-aos="fade-up"
       data-aos-duration="800"
       id="about"
@@ -16,9 +16,9 @@ export default function About() {
           <div data-aos="fade-right" data-aos-delay="200">
             <h2 className="text-5xl font-bold uppercase mb-12 leading-none tracking-tight">
               Our Digital <br />
-              Philosophy.
+              <span className="text-[#00b4ff]">Philosophy.</span>
             </h2>
-            <div className="space-y-8 text-lg text-gray-400 leading-relaxed">
+            <div className="space-y-8 text-lg text-[#64748b] leading-relaxed">
               <p>
                 We believe that every pixel and every line of code serves a purpose. 
                 In the digital age, your brand's presence must be built with the 
@@ -31,31 +31,31 @@ export default function About() {
                 high-converting.
               </p>
             </div>
-            <div className="mt-16 grid grid-cols-2 gap-12 border-t border-gray-800 pt-12">
+            <div className="mt-16 grid grid-cols-2 gap-12 border-t border-[#e2e8f0] pt-12">
               <div>
-                <div className="text-4xl font-bold mb-2">12+</div>
-                <div className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                <div className="text-4xl font-bold mb-2 text-black">12+</div>
+                <div className="text-xs font-bold uppercase tracking-widest text-[#64748b]">
                   Projects Completed
                 </div>
               </div>
               <div>
-                <div className="text-4xl font-bold mb-2">05+</div>
-                <div className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                <div className="text-4xl font-bold mb-2 text-black">05+</div>
+                <div className="text-xs font-bold uppercase tracking-widest text-[#64748b]">
                   Years Experience
                 </div>
               </div>
             </div>
           </div>
           <div className="relative" data-aos="fade-left" data-aos-delay="400">
-            <div className="aspect-square border-2 border-white p-8 relative overflow-hidden">
+            <div className="aspect-square border-[1px] border-[#e2e8f0] p-6 relative overflow-hidden rounded-[3rem] bg-[#f8fafc] shadow-2xl shadow-black/5">
               <Image
                 alt="Digital Philosophy"
-                className="object-cover grayscale opacity-80 hover:scale-105 transition-transform duration-1000"
+                className="object-cover rounded-[2rem] hover:scale-105 transition-transform duration-1000 grayscale hover:grayscale-0"
                 src="/_A_premium_abstract_202604241347.jpeg"
                 fill
               />
             </div>
-            <div className="absolute -bottom-8 -left-8 bg-white text-black p-8 border-2 border-black hidden md:block z-10">
+            <div className="absolute -bottom-8 -left-8 bg-[#00b4ff] text-white p-10 rounded-3xl shadow-xl hidden md:block z-10">
               <div className="text-3xl font-bold leading-tight uppercase tracking-tight">
                 Uncompromising
                 <br />

@@ -12,9 +12,9 @@ export default function Portfolio() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-baseline mb-24">
           <h2 className="text-5xl font-bold uppercase tracking-tight">
-            Recent Blogs
+            Latest <span className="text-[#00b4ff]">Insights</span>
           </h2>
-          <span className="text-xs font-bold uppercase tracking-widest text-gray-400">02 / BLOGS</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-[#64748b]">02 / BLOGS</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <ProjectCard
@@ -35,10 +35,10 @@ export default function Portfolio() {
         
         {/* Marquee for Tech Stack */}
         <div
-          className="mt-48 border-y-2 border-black py-12 overflow-hidden flex whitespace-nowrap"
+          className="mt-48 border-y-[1px] border-[#e2e8f0] py-16 overflow-hidden flex whitespace-nowrap bg-[#f8fafc]"
           data-aos="fade-in"
         >
-          <div className="animate-marquee flex gap-12 text-4xl uppercase font-black opacity-10">
+          <div className="animate-marquee flex gap-16 text-5xl uppercase font-black text-[#00b4ff15]">
             <span>
               REACT • NODE.JS • AWS • DOCKER • PYTHON • GO • NATIVE ANDROID • POSTGRESQL •
               KUBERNETES • TYPESCRIPT • SQL •{" "}
@@ -57,27 +57,29 @@ export default function Portfolio() {
 function ProjectCard({ title, desc, image, delay, slug }: { title: string; desc: string; image: string; delay: number; slug: string }) {
   return (
     <Link href={`/blog/${slug}`} className="group block" data-aos="fade-up" data-aos-delay={delay}>
-      <div className="aspect-[16/10] bg-gray-100 mb-8 border-2 border-black overflow-hidden relative">
+      <div className="aspect-[16/10] bg-gray-100 mb-8 overflow-hidden relative rounded-[2.5rem] shadow-xl shadow-black/5">
         <Image
           alt={title}
-          className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
           src={image}
           fill
         />
-        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+        <div className="absolute inset-0 bg-[#00b4ff] opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
       </div>
-      <div className="flex justify-between items-start">
+      <div className="flex justify-between items-center px-4">
         <div>
-          <h4 className="text-3xl font-bold uppercase mb-2 leading-none tracking-tight">
+          <h4 className="text-3xl font-bold uppercase mb-2 leading-none tracking-tight group-hover:text-[#00b4ff] transition-colors duration-300">
             {title}
           </h4>
-          <p className="text-base text-gray-500">
+          <p className="text-base text-[#64748b]">
             {desc}
           </p>
         </div>
-        <span className="material-symbols-outlined text-3xl group-hover:translate-x-2 transition-transform">
-          arrow_forward
-        </span>
+        <div className="w-12 h-12 rounded-full border-[1px] border-[#e2e8f0] flex items-center justify-center group-hover:bg-[#00b4ff] group-hover:border-[#00b4ff] transition-all duration-500">
+          <span className="material-symbols-outlined text-2xl group-hover:text-white group-hover:translate-x-1 transition-all duration-500">
+            arrow_forward
+          </span>
+        </div>
       </div>
     </Link>
   );

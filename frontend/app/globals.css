@@ -2,25 +2,58 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --primary: #00b4ff;
+  --primary-hover: #0093d1;
+  --secondary: #64748b;
+  --accent: #e0f2fe;
+  --muted: #f1f5f9;
+  --border: #e2e8f0;
+}
+
 body {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--background);
+  color: var(--foreground);
   cursor: crosshair;
   overflow-x: hidden;
   font-family: var(--font-inter), sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-inter), sans-serif;
+  letter-spacing: -0.02em;
 }
 
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 32px;
+  gap: 24px;
 }
 
-/* Hide elements before GSAP loads to prevent flash */
+/* Modern Glassmorphism & UI effects */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #0a0a0a 0%, #00b4ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Hide elements before GSAP loads */
 .gsap-reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -40,17 +73,13 @@ h1, h2, h3, h4, h5, h6 {
   vertical-align: middle;
 }
 
-.bg-blueprint {
-  background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0);
-  background-size: 24px 24px;
-}
-
 .progress-fill {
   width: var(--progress-width, 0%);
+  transition: width 0.3s ease-out;
 }
 
-
-
-
-
-
+/* Selection color */
+::selection {
+  background: var(--primary);
+  color: white;
+}

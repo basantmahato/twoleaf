@@ -11,6 +11,7 @@ const router = express.Router();
 const authRoutes = require("./auth.routes");
 const leadsRoutes = require("./leads.routes");
 const projectsRoutes = require("./projects.routes");
+const blogRoutes = require("./blog.routes");
 const { authLimiter, writeLimiter } = require("../../config/rateLimit.config");
 
 // ── Auth — strict rate limit on sensitive endpoints ────────────
@@ -24,6 +25,9 @@ router.use("/leads", leadsRoutes);
 
 // ── Projects ───────────────────────────────────────────────────
 router.use("/projects", projectsRoutes);
+
+// ── Blogs ──────────────────────────────────────────────────────
+router.use("/blogs", blogRoutes);
 
 // ── v1 health sub-check ────────────────────────────────────────
 router.get("/health", (req, res) => {

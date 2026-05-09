@@ -8,6 +8,7 @@ import {
   LayoutDashboard, 
   Users, 
   Briefcase,
+  FileText,
   LogOut,
   X
 } from "lucide-react";
@@ -80,6 +81,13 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
             active={pathname.startsWith("/dashboard/projects")} 
             isSidebarOpen={isOpen} 
             href="/dashboard/projects" 
+          />
+          <SidebarItem 
+            icon={<FileText size={20} />} 
+            label="Blogs" 
+            active={pathname.startsWith("/dashboard/blogs")} 
+            isSidebarOpen={isOpen} 
+            href="/dashboard/blogs" 
           />
         </nav>
 
