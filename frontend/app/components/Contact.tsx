@@ -70,20 +70,20 @@ export default function Contact() {
               HAVE A CHALLENGE THAT REQUIRES <span className="text-[#00b4ff]">DIGITAL PRECISION?</span>
             </p>
             <div className="space-y-8">
-              <div className="group cursor-pointer">
+              <div className="group cursor-pointer max-w-full">
                 <div className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">
                   EMAIL US
                 </div>
-                <div className="text-2xl font-bold text-black group-hover:text-[#00b4ff] transition-all duration-300">
+                <div className="text-lg md:text-2xl font-bold text-black group-hover:text-[#00b4ff] transition-all duration-300 break-all md:break-normal leading-tight">
                  twoleafservices@gmail.com
                 </div>
               </div>
-              <div className="group cursor-pointer">
+              <div className="group cursor-pointer max-w-full">
                 <div className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">
                   LOCATION
                 </div>
-                <div className="text-xl font-bold text-black group-hover:text-[#00b4ff] transition-all duration-300 uppercase leading-relaxed">
-                 Jamshedpur,Jharkhand
+                <div className="text-lg md:text-xl font-bold text-black group-hover:text-[#00b4ff] transition-all duration-300 uppercase leading-relaxed break-words">
+                 Jamshedpur, Jharkhand
                 </div>
               </div>
             </div>
