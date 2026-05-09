@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "TwoLeaf Services | Precision Software Architecture",
   description: "Next-generation digital agency specializing in high-performance software, AI systems, and scalable CRM infrastructure.",
   icons: {
-    icon: "/NEGLOGO.JPG",
+    icon: "/favicon.png",
   },
 };
 
