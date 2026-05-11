@@ -32,14 +32,11 @@ export default function Portfolio() {
 
         {/* Blog cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {isLoading ? (
-            <div className="col-span-2 py-20 text-center text-[#9ca3af] text-sm">
-              Loading insights...
-            </div>
-          ) : blogs?.length === 0 ? (
-            <div className="col-span-2 py-20 text-center text-[#9ca3af] text-sm">
-              No insights published yet.
-            </div>
+          {isLoading || !blogs || blogs.length === 0 ? (
+            <>
+              <BlogSkeleton />
+              <BlogSkeleton />
+            </>
           ) : (
             blogs?.map((blog: any, index: number) => (
               <ProjectCard
@@ -71,10 +68,25 @@ export default function Portfolio() {
   );
 }
 
+function BlogSkeleton() {
+  return (
+    <div className="bg-white rounded-[2rem] overflow-hidden border border-[#e5e7eb] flex flex-col h-full animate-pulse">
+      <div className="aspect-[1.1/1] bg-[#f2f4f2] m-2 rounded-[1.8rem]" />
+      <div className="p-6 pt-2 space-y-4">
+        <div className="h-2.5 bg-[#f2f4f2] rounded-full w-1/3" />
+        <div className="space-y-2">
+          <div className="h-4 bg-[#f2f4f2] rounded-full w-full" />
+          <div className="h-4 bg-[#f2f4f2] rounded-full w-2/3" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ProjectCard({ title, desc, image, slug }: { title: string; desc: string; image: string; slug: string }) {
   return (
-    <Link href={`/blog/${slug}`} className="group block border border-[#e5e7eb] rounded-2xl overflow-hidden hover:border-[#18A058] hover:shadow-lg hover:shadow-[#18A05810] transition-all duration-300">
-      <div className="aspect-[16/9] bg-gray-100 overflow-hidden relative">
+    <Link href={`/blog/${slug}`} className="group block bg-white border border-[#e5e7eb] rounded-[2rem] overflow-hidden hover:border-[#18A058] hover:shadow-lg hover:shadow-[#18A05810] transition-all duration-300">
+      <div className="aspect-[1.1/1] bg-gray-100 overflow-hidden relative m-2 rounded-[1.8rem]">
         <Image
           alt={title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -83,9 +95,9 @@ function ProjectCard({ title, desc, image, slug }: { title: string; desc: string
         />
         <div className="absolute inset-0 bg-[#18A058] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
       </div>
-      <div className="p-6 flex justify-between items-center gap-4">
+      <div className="p-6 pt-2 flex justify-between items-center gap-4">
         <div>
-          <h4 className="text-base font-bold text-[#1a1a2e] mb-1 group-hover:text-[#18A058] transition-colors duration-300 leading-snug">
+          <h4 className="text-base font-bold text-[#1a1a2e] mb-1 group-hover:text-[#18A058] transition-colors duration-300 leading-snug line-clamp-1">
             {title}
           </h4>
           <p className="text-sm text-[#6b7280] line-clamp-2">{desc}</p>

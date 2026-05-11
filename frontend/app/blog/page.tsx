@@ -44,28 +44,11 @@ export default function BlogListing() {
           </div>
 
           {/* Blog grid */}
-          {isLoading ? (
+          {isLoading || !blogs || blogs.length === 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="bg-white rounded-2xl overflow-hidden border border-[#e5e7eb] animate-pulse">
-                  <div className="aspect-[16/9] bg-gray-100" />
-                  <div className="p-5 space-y-3">
-                    <div className="h-3 bg-gray-100 rounded w-1/3" />
-                    <div className="h-5 bg-gray-100 rounded w-3/4" />
-                    <div className="h-3 bg-gray-100 rounded w-full" />
-                  </div>
-                </div>
+              {[...Array(6)].map((_, i) => (
+                <BlogSkeleton key={i} />
               ))}
-            </div>
-          ) : blogs?.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="w-16 h-16 rounded-full bg-[#18A05815] flex items-center justify-center mx-auto mb-4">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#18A058" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                </svg>
-              </div>
-              <p className="text-sm font-semibold text-[#6b7280]">No insights published yet.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -81,14 +64,39 @@ export default function BlogListing() {
   );
 }
 
+function BlogSkeleton() {
+  return (
+    <div className="bg-white rounded-[2rem] overflow-hidden border border-[#e5e7eb] flex flex-col h-full animate-pulse">
+      {/* Image Placeholder */}
+      <div className="aspect-[1.1/1] bg-[#f2f4f2] m-2 rounded-[1.8rem]" />
+      
+      {/* Content Placeholder */}
+      <div className="p-6 pt-2 space-y-4">
+        <div className="h-2.5 bg-[#f2f4f2] rounded-full w-1/3" />
+        <div className="space-y-2">
+          <div className="h-4 bg-[#f2f4f2] rounded-full w-full" />
+          <div className="h-4 bg-[#f2f4f2] rounded-full w-2/3" />
+        </div>
+        <div className="pt-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full bg-[#f2f4f2]" />
+            <div className="h-2 bg-[#f2f4f2] rounded-full w-12" />
+          </div>
+          <div className="h-2 bg-[#f2f4f2] rounded-full w-10" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function BlogCard({ blog }: { blog: any }) {
   return (
     <Link
       href={`/blog/${blog.slug}`}
-      className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-[#e5e7eb] hover:border-[#18A058] hover:shadow-lg hover:shadow-[#18A05810] transition-all duration-300"
+      className="group flex flex-col bg-white rounded-[2rem] overflow-hidden border border-[#e5e7eb] hover:border-[#18A058] hover:shadow-lg hover:shadow-[#18A05810] transition-all duration-300 h-full"
     >
-      {/* Image */}
-      <div className="aspect-[16/9] overflow-hidden relative bg-gray-100">
+      {/* Image Container */}
+      <div className="aspect-[1.1/1] overflow-hidden relative bg-gray-100 m-2 rounded-[1.8rem]">
         <Image
           src={blog.image}
           alt={blog.title}
@@ -99,11 +107,11 @@ function BlogCard({ blog }: { blog: any }) {
       </div>
 
       {/* Content */}
-      <div className="p-5 flex flex-col flex-1">
+      <div className="p-6 pt-2 flex flex-col flex-1">
         {/* Tags */}
         {blog.tags?.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-3">
-            {blog.tags.slice(0, 2).map((tag: string) => (
+            {blog.tags.slice(0, 1).map((tag: string) => (
               <span
                 key={tag}
                 className="text-[10px] font-bold uppercase tracking-wider text-[#18A058] bg-[#18A05810] px-3 py-1 rounded-full"

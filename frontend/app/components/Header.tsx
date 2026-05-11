@@ -69,12 +69,12 @@ export default function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
+            {/* <Link
               href="/#contact"
               className="text-sm font-semibold text-[#18A058] hover:text-[#15803d] transition-colors duration-200"
             >
               Login
-            </Link>
+            </Link> */}
             {!isStartProject && (
               <Link
                 href="/start-project"
