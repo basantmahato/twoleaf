@@ -53,7 +53,7 @@ export default function Hero() {
                   <path d="M8 5V8.5L10 10" stroke="#18A058" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
               </div>
-              <span className="text-xs font-semibold text-[#4b5563]">5+ Years Experience</span>
+              <span className="text-xs font-semibold text-[#4b5563]">3+ Years Experience</span>
             </div>
             <div className="w-px h-6 bg-gray-200" />
             <div className="flex items-center gap-2">

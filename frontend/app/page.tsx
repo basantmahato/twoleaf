@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Stats from "./components/Stats";
 import ClientsFeatures from "./components/ClientsFeatures";
 import Testimonials from "./components/Testimonials";
+import FAQ from "./components/FAQ";
 
 export default function Home() {
 
@@ -24,6 +25,7 @@ export default function Home() {
         <Portfolio />
         <About />
         <Testimonials />
+        <FAQ />
         <Contact />
       </main>
       <Footer />

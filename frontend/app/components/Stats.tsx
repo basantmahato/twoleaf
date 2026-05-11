@@ -115,7 +115,7 @@ export default function Stats() {
           <div className="grid grid-cols-2 gap-x-8 gap-y-8">
             <StatCard icon={<MembersIcon />} value={10}  suffix="+" label="Happy Clients" />
             <StatCard icon={<ProjectsIcon />} value={12} suffix="+" label="Projects Delivered" />
-            <StatCard icon={<YearsIcon />}    value={5}  suffix="+" label="Years Experience" />
+            <StatCard icon={<YearsIcon />}    value={3}  suffix="+" label="Years Experience" />
             <StatCard icon={<RateIcon />}     value={99} suffix="%" label="Success Rate" />
           </div>
         </div>

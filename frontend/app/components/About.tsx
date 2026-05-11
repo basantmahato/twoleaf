@@ -36,7 +36,7 @@ export default function About() {
               </div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#1a1a2e] mb-1">05+</div>
+              <div className="text-3xl font-bold text-[#1a1a2e] mb-1">03+</div>
               <div className="text-xs font-semibold uppercase tracking-widest text-[#9ca3af]">
                 Years Experience
               </div>

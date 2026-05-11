@@ -202,7 +202,7 @@ export default function ClientsFeatures() {
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a2e] leading-snug mb-5">
               Building digital excellence <br />
-              <span className="text-[#18A058]">for over 5 years</span>
+              <span className="text-[#18A058]">for over 3 years</span>
             </h2>
             <p className="text-sm text-[#6b7280] leading-relaxed mb-4">
               Since our founding, TwoLeaf has partnered with startups, enterprises, and agencies 

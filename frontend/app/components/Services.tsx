@@ -9,7 +9,7 @@ export default function Services() {
         {/* Header row */}
         <div className="flex justify-between items-start mb-14">
           <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-tight text-[#1a1a2e]">
-            Core <span className="text-[#18A058]">Expertise</span>
+            OUR <span className="text-[#18A058]">SERVICES</span>
           </h2>
           <span className="text-xs font-bold uppercase tracking-widest text-[#9ca3af] mt-2">
             01 / Services
