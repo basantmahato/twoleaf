@@ -1,119 +1,114 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
-  const container = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-
-      tl.to("#hero-label", {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        delay: 0.5,
-      })
-        .to(
-          "#hero-title",
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-          },
-          "-=0.7"
-        )
-        .to(
-          "#hero-content",
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-          },
-          "-=0.8"
-        )
-        .to(
-          "#hero-graphic",
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1.5,
-            ease: "expo.out",
-          },
-          "-=1"
-        );
-
-      // Rotate the inner diamond of the graphic slightly on load
-      gsap.fromTo(
-        "#hero-graphic .rotate-45",
-        { rotate: 0, scale: 0.8 },
-        { rotate: 45, scale: 1, duration: 2, ease: "expo.out", delay: 1.2 }
-      );
-    }, container);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section
-      ref={container}
-      className="min-h-screen flex flex-col justify-center px-8 md:px-12 pt-32 pb-16 overflow-hidden relative bg-dot-pattern"
-    >
-      {/* Decorative gradient blur */}
-      <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#00b4ff15] rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-[#00b4ff10] rounded-full blur-[100px] -z-10" />
+    <section className="min-h-[88vh] flex items-center bg-[#f5f7f5] pt-20 pb-12 px-6 md:px-10 overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-      <div className="max-w-7xl mx-auto w-full relative z-10">
-        <div className="mb-8 gsap-reveal" id="hero-label">
-          <span className="font-label-caps text-xs uppercase border-l-2 border-[#00b4ff] pl-4 font-semibold tracking-widest text-[#64748b]">
-            Digital Agency
-          </span>
-        </div>
-        <h1
-          className="text-5xl md:text-8xl font-bold uppercase mb-12 max-w-5xl gsap-reveal leading-none tracking-tighter"
-          id="hero-title"
-        >
-          Building the <br />
-          <span className="text-[#00b4ff]">Future</span> of Tech.
-        </h1>
-        <div className="flex flex-col md:flex-row justify-between items-end gap-12">
-          <div className="max-w-xl gsap-reveal" id="hero-content">
-            <p className="text-lg md:text-xl text-[#64748b] mb-12 leading-relaxed">
-              We are a premier digital agency crafting 
-              <span className="text-black font-medium"> high-performance software</span>, 
-              integrated AI systems, and bespoke web experiences that drive growth.
-            </p>
-            <div className="flex flex-wrap gap-6">
-              <a 
-                href="#services"
-                className="bg-[#00b4ff] text-white px-10 py-5 font-label-caps text-xs uppercase tracking-[0.2em] hover:bg-black transition-all duration-500 rounded-full shadow-lg shadow-[#00b4ff20] font-bold"
-              >
-                OUR SERVICES
-              </a>
-              <a 
-                href="#portfolio"
-                className="border-2 border-black px-10 py-5 font-label-caps text-xs uppercase tracking-[0.2em] hover:bg-[#00b4ff] hover:border-[#00b4ff] hover:text-white transition-all duration-500 rounded-full font-bold"
-              >
-                VIEW WORK
-              </a>
+        {/* Left: Text Content */}
+        <div className="hero-fade-in delay-200">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a2e] leading-tight mb-4">
+            Solutions and results{" "}
+            <span className="text-[#18A058] block mt-1">for your business</span>
+          </h1>
+
+          <p className="text-[#6b7280] text-base md:text-lg leading-relaxed mb-8 max-w-md">
+            We craft high-performance software, integrate intelligent AI systems, 
+            and deliver digital marketing campaigns that drive real growth for your business.
+          </p>
+
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/start-project"
+              className="inline-block bg-[#18A058] text-white text-sm font-semibold px-8 py-3 rounded-md hover:bg-[#15803d] transition-all duration-300 shadow-md shadow-[#18A05830]"
+            >
+              Start a Project
+            </Link>
+            <Link
+              href="/#services"
+              className="inline-block border border-[#18A058] text-[#18A058] text-sm font-semibold px-8 py-3 rounded-md hover:bg-[#18A058] hover:text-white transition-all duration-300"
+            >
+              Our Services
+            </Link>
+          </div>
+
+          {/* Trust badges */}
+          <div className="mt-12 flex items-center gap-6 flex-wrap">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-[#18A05815] flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 1L10 6H15L11 9.5L12.5 14.5L8 11.5L3.5 14.5L5 9.5L1 6H6L8 1Z" fill="#18A058"/>
+                </svg>
+              </div>
+              <span className="text-xs font-semibold text-[#4b5563]">5★ Client Rating</span>
+            </div>
+            <div className="w-px h-6 bg-gray-200" />
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-[#18A05815] flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="6" stroke="#18A058" strokeWidth="1.5"/>
+                  <path d="M8 5V8.5L10 10" stroke="#18A058" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <span className="text-xs font-semibold text-[#4b5563]">5+ Years Experience</span>
+            </div>
+            <div className="w-px h-6 bg-gray-200" />
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-[#18A05815] flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8L6.5 11.5L13 5" stroke="#18A058" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <span className="text-xs font-semibold text-[#4b5563]">12+ Projects Delivered</span>
             </div>
           </div>
-          <div
-            className="w-full md:w-1/3 aspect-square border-[1px] border-[#e2e8f0] bg-white p-8 relative group gsap-reveal shadow-2xl shadow-[#00b4ff05] rounded-3xl"
-            id="hero-graphic"
-          >
-            <div className="w-full h-full bg-[#00b4ff] flex items-center justify-center overflow-hidden rounded-2xl relative">
-              <div className="w-2/3 h-2/3 border-2 border-white rotate-45 group-hover:rotate-90 transition-transform duration-1000"></div>
-              <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                <div className="w-full h-px bg-white"></div>
-                <div className="h-full w-px bg-white absolute"></div>
-              </div>
-              {/* Floating elements for modern look */}
-              <div className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full blur-sm group-hover:scale-150 transition-transform duration-700"></div>
-              <div className="absolute bottom-6 left-6 w-12 h-12 bg-white/10 rounded-full blur-md group-hover:scale-125 transition-transform duration-1000"></div>
+        </div>
+
+        {/* Right: Illustration */}
+        <div
+          className="relative flex justify-center items-center hero-scale-in delay-400"
+        >
+          {/* Background circle decoration */}
+          <div className="absolute w-[340px] h-[340px] md:w-[420px] md:h-[420px] rounded-full bg-[#18A05812] -z-0" />
+          <div className="absolute w-[260px] h-[260px] md:w-[320px] md:h-[320px] rounded-full bg-[#18A05818] -z-0" />
+
+          <div className="relative z-10 w-full max-w-[480px]">
+            <Image
+              src="/hero-illustration.png"
+              alt="TwoLeaf digital agency - software development and AI integration"
+              width={520}
+              height={420}
+              className="w-full h-auto object-contain drop-shadow-xl"
+              priority
+            />
+          </div>
+
+          {/* Floating stat cards */}
+          <div className="absolute top-6 right-0 md:-right-6 z-20 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center gap-3 hero-fade-in delay-800">
+            <div className="w-9 h-9 rounded-full bg-[#18A05815] flex items-center justify-center flex-shrink-0">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M3 13L7 9L10 12L15 6" stroke="#18A058" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div className="text-xs text-[#9ca3af]">Project Success</div>
+              <div className="text-sm font-bold text-[#1a1a2e]">99% Rate</div>
+            </div>
+          </div>
+
+          <div className="absolute bottom-6 left-0 md:-left-6 z-20 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center gap-3 hero-fade-in delay-1000">
+            <div className="w-9 h-9 rounded-full bg-[#18A05815] flex items-center justify-center flex-shrink-0">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <circle cx="9" cy="9" r="6" stroke="#18A058" strokeWidth="2"/>
+                <path d="M9 6V9.5L11 11" stroke="#18A058" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div className="text-xs text-[#9ca3af]">On-time Delivery</div>
+              <div className="text-sm font-bold text-[#1a1a2e]">Always</div>
             </div>
           </div>
         </div>

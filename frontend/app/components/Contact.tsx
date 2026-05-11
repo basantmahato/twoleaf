@@ -5,13 +5,8 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
-
-interface ContactFormData {
-  name: string;
-  email: string;
-  type: string;
-  notes: string;
-}
+interface ContactFormData { name: string; email: string; type: string; notes: string; }
+const inputClass = "w-full border border-[#e5e7eb] rounded-lg px-4 py-3 text-sm text-[#1a1a2e] placeholder-[#9ca3af] bg-white focus:outline-none focus:border-[#18A058] transition-colors";
 
 export default function Contact() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>();
@@ -21,126 +16,90 @@ export default function Contact() {
       const res = await fetch(`${API_URL}/leads`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          status: "new",
-          source: "contact_form",
-          notes: `${data.type}: ${data.notes}`
-        }),
+        body: JSON.stringify({ name: data.name, email: data.email, status: "new", source: "contact_form", notes: `${data.type}: ${data.notes}` }),
       });
       if (!res.ok) throw new Error("Failed to submit");
       return res.json();
     },
-    onSuccess: () => {
-      toast.success("Enquiry Received", {
-        description: "Our team will reach out to you within 24 hours.",
-        duration: 5000,
-      });
-      reset();
-    },
-    onError: (error: any) => {
-      toast.error("Submission Failed", {
-        description: error.message
-      });
-    }
+    onSuccess: () => { toast.success("Enquiry Received", { description: "Our team will reach out within 24 hours.", duration: 5000 }); reset(); },
+    onError: (error: any) => { toast.error("Submission Failed", { description: error.message }); },
   });
 
-  const onSubmit = (data: ContactFormData) => {
-    mutation.mutate(data);
-  };
-
   return (
-    <section
-      className="py-32 px-8 md:px-12 bg-[#f8fafc]"
-      data-aos="fade-up"
-      data-aos-duration="800"
-      id="contact"
-    >
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-baseline mb-24">
-          <h2 className="text-5xl font-bold uppercase tracking-tight">
-            Get In <span className="text-[#00b4ff]">Touch</span>
+    <section className="py-20 px-6 md:px-10 bg-white border-t border-[#e5e7eb]" id="contact">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex justify-between items-start mb-14">
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#1a1a2e]">
+            Get In <span className="text-[#18A058]">Touch</span>
           </h2>
-          <span className="text-xs font-bold uppercase tracking-widest text-[#64748b]">03 / CONTACT</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-[#9ca3af] mt-2">03 / Contact</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16">
-          <div className="md:col-span-5 space-y-12" data-aos="fade-right">
-            <p className="text-3xl font-bold uppercase leading-tight tracking-tight text-black">
-              HAVE A CHALLENGE THAT REQUIRES <span className="text-[#00b4ff]">DIGITAL PRECISION?</span>
+
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
+          {/* Left info */}
+          <div className="md:col-span-2 space-y-8">
+            <p className="text-base font-semibold text-[#1a1a2e] leading-snug">
+              Have a challenge that requires <span className="text-[#18A058]">digital precision?</span>
             </p>
-            <div className="space-y-8">
-              <div className="group cursor-pointer max-w-full">
-                <div className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">
-                  EMAIL US
-                </div>
-                <div className="text-lg md:text-2xl font-bold text-black group-hover:text-[#00b4ff] transition-all duration-300 break-all md:break-normal leading-tight">
-                 twoleafservices@gmail.com
-                </div>
+            <div className="space-y-6">
+              <div>
+                <div className="text-[10px] font-bold text-[#9ca3af] uppercase tracking-widest mb-1">Email Us</div>
+                <a href="mailto:twoleafservices@gmail.com" className="text-sm font-semibold text-[#1a1a2e] hover:text-[#18A058] transition-colors break-all">
+                  twoleafservices@gmail.com
+                </a>
               </div>
-              <div className="group cursor-pointer max-w-full">
-                <div className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest mb-2">
-                  LOCATION
-                </div>
-                <div className="text-lg md:text-xl font-bold text-black group-hover:text-[#00b4ff] transition-all duration-300 uppercase leading-relaxed break-words">
-                 Jamshedpur, Jharkhand
-                </div>
+              <div>
+                <div className="text-[10px] font-bold text-[#9ca3af] uppercase tracking-widest mb-1">Location</div>
+                <div className="text-sm font-semibold text-[#1a1a2e]">Jamshedpur, Jharkhand</div>
               </div>
             </div>
+            <div className="p-5 bg-[#f9fafb] rounded-2xl border border-[#e5e7eb] space-y-3">
+              {["48-hour response guarantee", "Free initial consultation", "Fixed-price project quotes"].map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-[#18A05815] flex items-center justify-center flex-shrink-0">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M2 5L4 7L8 3" stroke="#18A058" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  <span className="text-xs text-[#4b5563] font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="md:col-span-7 bg-white p-10 rounded-[2.5rem] shadow-2xl shadow-black/5" data-aos="fade-left">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div className="relative group">
-                  <input
-                    {...register("name", { required: true })}
-                    className="w-full border-0 border-b-[1px] border-[#e2e8f0] focus:ring-0 focus:border-[#00b4ff] py-4 text-xs font-bold uppercase tracking-widest bg-transparent transition-all peer text-black"
-                    placeholder="YOUR NAME"
-                  />
-                  <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#00b4ff] peer-focus:w-full transition-all duration-500"></div>
+
+          {/* Right form */}
+          <div className="md:col-span-3 bg-white border border-[#e5e7eb] rounded-2xl p-8 shadow-sm">
+            <form onSubmit={handleSubmit((d) => mutation.mutate(d))} className="space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label className="text-xs font-semibold text-[#6b7280] block mb-1.5">Your Name</label>
+                  <input {...register("name", { required: true })} placeholder="e.g. John Doe" className={inputClass} />
+                  {errors.name && <p className="text-xs text-red-500 mt-1">Required</p>}
                 </div>
-                <div className="relative group">
-                  <input
-                    {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-                    className="w-full border-0 border-b-[1px] border-[#e2e8f0] focus:ring-0 focus:border-[#00b4ff] py-4 text-xs font-bold uppercase tracking-widest bg-transparent transition-all peer text-black"
-                    placeholder="EMAIL ADDRESS"
-                    type="email"
-                  />
-                  <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#00b4ff] peer-focus:w-full transition-all duration-500"></div>
+                <div>
+                  <label className="text-xs font-semibold text-[#6b7280] block mb-1.5">Email Address</label>
+                  <input {...register("email", { required: true, pattern: /^\S+@\S+$/i })} type="email" placeholder="e.g. john@company.com" className={inputClass} />
+                  {errors.email && <p className="text-xs text-red-500 mt-1">Valid email required</p>}
                 </div>
               </div>
-              <div className="relative group">
-                <select 
-                  {...register("type", { required: true })}
-                  defaultValue="" 
-                  title="Project Type" 
-                  className="w-full border-0 border-b-[1px] border-[#e2e8f0] focus:ring-0 focus:border-[#00b4ff] py-4 text-xs font-bold uppercase tracking-widest bg-transparent appearance-none transition-all text-black"
-                >
-                  <option disabled value="">
-                    PROJECT TYPE
-                  </option>
-                  <option value="SOFTWARE DEVELOPMENT">SOFTWARE DEVELOPMENT</option>
-                  <option value="AI INTEGRATION">AI INTEGRATION</option>
-                  <option value="CLOUD SOLUTIONS">CLOUD SOLUTIONS</option>
-                  <option value="OTHER">OTHER</option>
+              <div>
+                <label className="text-xs font-semibold text-[#6b7280] block mb-1.5">Project Type</label>
+                <select {...register("type", { required: true })} defaultValue="" title="Project Type" className={inputClass}>
+                  <option disabled value="">Select a type...</option>
+                  <option value="SOFTWARE DEVELOPMENT">Software Development</option>
+                  <option value="AI INTEGRATION">AI Integration</option>
+                  <option value="CLOUD SOLUTIONS">Cloud Solutions</option>
+                  <option value="DIGITAL MARKETING">Digital Marketing</option>
+                  <option value="OTHER">Other</option>
                 </select>
-                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#00b4ff] peer-focus:w-full transition-all duration-500"></div>
               </div>
-              <div className="relative group">
-                <textarea
-                  {...register("notes", { required: true })}
-                  className="w-full border-0 border-b-[1px] border-[#e2e8f0] focus:ring-0 focus:border-[#00b4ff] py-4 text-xs font-bold uppercase tracking-widest bg-transparent transition-all peer resize-none text-black"
-                  placeholder="TELL US ABOUT THE PROJECT"
-                  rows={4}
-                ></textarea>
-                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#00b4ff] peer-focus:w-full transition-all duration-500"></div>
+              <div>
+                <label className="text-xs font-semibold text-[#6b7280] block mb-1.5">Tell us about the project</label>
+                <textarea {...register("notes", { required: true })} placeholder="Describe your project goals, timeline, and requirements..." rows={4} className={`${inputClass} resize-none`} />
               </div>
-              <button
-                type="submit"
-                disabled={mutation.isPending}
-                className="w-full md:w-auto bg-[#00b4ff] text-white px-16 py-6 text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all duration-500 rounded-full shadow-lg shadow-[#00b4ff20] disabled:opacity-50"
-              >
-                {mutation.isPending ? "SENDING..." : "SEND ENQUIRY"}
+              <button type="submit" disabled={mutation.isPending}
+                className="w-full bg-[#18A058] text-white text-sm font-semibold py-3 rounded-lg hover:bg-[#15803d] transition-all duration-300 disabled:opacity-50">
+                {mutation.isPending ? "Sending..." : "Send Enquiry"}
               </button>
             </form>
           </div>

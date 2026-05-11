@@ -1,66 +1,63 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
 
 export default function About() {
   return (
-    <section
-      className="py-32 px-8 md:px-12 bg-white"
-      data-aos="fade-up"
-      data-aos-duration="800"
-      id="about"
-    >
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-32 items-center">
-          <div data-aos="fade-right" data-aos-delay="200">
-            <h2 className="text-5xl font-bold uppercase mb-12 leading-none tracking-tight">
-              Our Digital <br />
-              <span className="text-[#00b4ff]">Philosophy.</span>
-            </h2>
-            <div className="space-y-8 text-lg text-[#64748b] leading-relaxed">
-              <p>
-                We believe that every pixel and every line of code serves a purpose. 
-                In the digital age, your brand's presence must be built with the 
-                same precision, speed, and scalability as the world's leading tech platforms.
-              </p>
-              <p>
-                Our team is comprised of world-class developers and creative 
-                designers who share a single obsession: growth. We strip away 
-                the noise to deliver digital solutions that are as elegant as they are 
-                high-converting.
-              </p>
-            </div>
-            <div className="mt-16 grid grid-cols-2 gap-12 border-t border-[#e2e8f0] pt-12">
-              <div>
-                <div className="text-4xl font-bold mb-2 text-black">12+</div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[#64748b]">
-                  Projects Completed
-                </div>
+    <section className="py-20 px-6 md:px-10 bg-white border-t border-[#e5e7eb]" id="about">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+        {/* Left: text */}
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e] leading-snug mb-6">
+            Our Digital <br />
+            <span className="text-[#18A058]">Philosophy.</span>
+          </h2>
+          <div className="space-y-4 text-sm text-[#6b7280] leading-relaxed">
+            <p>
+              We believe that every pixel and every line of code serves a purpose.
+              In the digital age, your brand's presence must be built with the
+              same precision, speed, and scalability as the world's leading tech platforms.
+            </p>
+            <p>
+              Our team is comprised of world-class developers and creative
+              designers who share a single obsession: growth. We strip away
+              the noise to deliver digital solutions that are as elegant as they are
+              high-converting.
+            </p>
+          </div>
+
+          {/* Stats row */}
+          <div className="mt-10 grid grid-cols-2 gap-8 border-t border-[#e5e7eb] pt-8">
+            <div>
+              <div className="text-3xl font-bold text-[#1a1a2e] mb-1">12+</div>
+              <div className="text-xs font-semibold uppercase tracking-widest text-[#9ca3af]">
+                Projects Completed
               </div>
-              <div>
-                <div className="text-4xl font-bold mb-2 text-black">05+</div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[#64748b]">
-                  Years Experience
-                </div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-[#1a1a2e] mb-1">05+</div>
+              <div className="text-xs font-semibold uppercase tracking-widest text-[#9ca3af]">
+                Years Experience
               </div>
             </div>
           </div>
-          <div className="relative" data-aos="fade-left" data-aos-delay="400">
-            <div className="aspect-square border-[1px] border-[#e2e8f0] p-6 relative overflow-hidden rounded-[3rem] bg-[#f8fafc] shadow-2xl shadow-black/5">
-              <Image
-                alt="Digital Philosophy"
-                className="object-cover rounded-[2rem] hover:scale-105 transition-transform duration-1000 grayscale hover:grayscale-0"
-                src="/_A_premium_abstract_202604241347.jpeg"
-                fill
-              />
-            </div>
-            <div className="absolute -bottom-8 -left-8 bg-[#00b4ff] text-white p-10 rounded-3xl shadow-xl hidden md:block z-10">
-              <div className="text-3xl font-bold leading-tight uppercase tracking-tight">
-                Uncompromising
-                <br />
-                Standards.
-              </div>
+        </div>
+
+        {/* Right: image */}
+        <div className="relative">
+          <div className="aspect-square border border-[#e5e7eb] p-4 relative overflow-hidden rounded-3xl bg-[#f9fafb] shadow-lg shadow-black/5">
+            <Image
+              alt="Digital Philosophy — TwoLeaf team"
+              className="object-cover rounded-2xl hover:scale-105 transition-transform duration-700"
+              src="/about-philosophy.png"
+              fill
+            />
+          </div>
+          {/* Floating badge */}
+          <div className="absolute -bottom-5 -left-5 bg-[#18A058] text-white px-6 py-5 rounded-2xl shadow-lg hidden md:block z-10">
+            <div className="text-lg font-bold leading-tight uppercase tracking-tight">
+              Uncompromising<br />Standards.
             </div>
           </div>
         </div>

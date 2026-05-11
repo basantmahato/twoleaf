@@ -4,27 +4,15 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { ChevronRight, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
-
-interface ProjectFormData {
-  name: string;
-  email: string;
-  company?: string;
-  type: string;
-  budget: string;
-  details: string;
-}
+interface ProjectFormData { name: string; email: string; company?: string; type: string; budget: string; details: string; }
+const inputClass = "w-full border border-[#e5e7eb] rounded-lg px-4 py-3 text-sm text-[#1a1a2e] placeholder-[#9ca3af] bg-white focus:outline-none focus:border-[#18A058] transition-colors";
 
 export default function StartProjectPage() {
-  const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm<ProjectFormData>({
-    defaultValues: {
-      budget: "₹10k - ₹50k"
-    }
-  });
-
+  const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm<ProjectFormData>({ defaultValues: { budget: "₹10k - ₹50k" } });
   const selectedBudget = watch("budget");
 
   const mutation = useMutation({
@@ -32,45 +20,29 @@ export default function StartProjectPage() {
       const res = await fetch(`${API_URL}/leads`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          company: data.company,
-          status: "new",
-          source: "start_project_page",
-          value: parseInt(data.budget.replace(/[^0-9]/g, "")) || 0,
-          notes: `Type: ${data.type} | Budget: ${data.budget} | Details: ${data.details}`
-        }),
+        body: JSON.stringify({ name: data.name, email: data.email, company: data.company, status: "new", source: "start_project_page", value: parseInt(data.budget.replace(/[^0-9]/g, "")) || 0, notes: `Type: ${data.type} | Budget: ${data.budget} | Details: ${data.details}` }),
       });
       if (!res.ok) throw new Error("Failed to submit request");
       return res.json();
-    }
+    },
   });
-
-  const onSubmit = (data: ProjectFormData) => {
-    mutation.mutate(data);
-  };
 
   if (mutation.isSuccess) {
     return (
-      <div className="min-h-screen bg-white flex flex-col bg-dot-pattern relative overflow-hidden">
-        {/* Decorative gradient blur */}
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#00b4ff15] rounded-full blur-[120px] -z-10" />
-        
+      <div className="min-h-screen bg-[#f5f7f5] flex flex-col">
         <Header />
-        <main className="flex-1 flex items-center justify-center p-8 relative z-10">
-          <div className="max-w-md text-center space-y-8">
-            <div className="w-24 h-24 bg-[#00b4ff] rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-[#00b4ff30]">
-              <ChevronRight className="text-white w-12 h-12" />
+        <main className="flex-1 flex items-center justify-center p-8">
+          <div className="max-w-md text-center space-y-6">
+            <div className="w-20 h-20 bg-[#18A058] rounded-full flex items-center justify-center mx-auto shadow-lg shadow-[#18A05830]">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 6L9 17L4 12" />
+              </svg>
             </div>
-            <h1 className="text-5xl font-black tracking-tighter uppercase text-black">Request <span className="text-[#00b4ff]">Received.</span></h1>
-            <p className="text-[#64748b] font-medium leading-relaxed">
-              Our architectural team has received your project details. We'll review your requirements and get back to you within 24-48 hours with a preliminary assessment.
+            <h1 className="text-3xl font-bold text-[#1a1a2e]">Request <span className="text-[#18A058]">Received!</span></h1>
+            <p className="text-sm text-[#6b7280] leading-relaxed">
+              Our team has received your project details and will review your requirements and get back to you within 24–48 hours.
             </p>
-            <Link 
-              href="/" 
-              className="inline-block bg-black text-white px-12 py-5 text-[10px] font-bold uppercase tracking-widest hover:bg-[#00b4ff] transition-all rounded-full shadow-lg"
-            >
+            <Link href="/" className="inline-block bg-[#18A058] text-white text-sm font-semibold px-8 py-3 rounded-lg hover:bg-[#15803d] transition-all">
               Return Home
             </Link>
           </div>
@@ -81,131 +53,109 @@ export default function StartProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col bg-dot-pattern relative overflow-hidden">
-      {/* Decorative gradient blurs */}
-      <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#00b4ff10] rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-[#00b4ff08] rounded-full blur-[100px] -z-10" />
-
+    <div className="min-h-screen bg-[#f5f7f5] flex flex-col">
       <Header />
-      
-      <main className="flex-1 pt-40 pb-24 px-8 md:px-12 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <Link href="/" className="inline-flex items-center gap-2 text-[10px] font-bold text-[#64748b] hover:text-[#00b4ff] transition-all mb-16 uppercase tracking-[0.2em] group">
-            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+      <main className="flex-1 pt-28 pb-20 px-6 md:px-10">
+        <div className="max-w-5xl mx-auto">
+          <Link href="/" className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#18A058] transition-colors mb-10 group">
+            <ArrowLeft size={15} className="group-hover:-translate-x-1 transition-transform" />
             Back to Home
           </Link>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-20">
-            <div className="md:col-span-5 space-y-10">
-              <div className="space-y-6">
-                <span className="text-[10px] font-bold text-[#00b4ff] uppercase tracking-[0.4em] block">Inquiry Phase</span>
-                <h1 className="text-6xl font-black tracking-tighter uppercase leading-none text-black">
-                  Let's Build <br /> Something <br /> <span className="text-[#00b4ff]">Great.</span>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-12 items-start">
+            {/* Left */}
+            <div className="md:col-span-2 space-y-6 md:sticky md:top-28">
+              <div>
+                <span className="text-xs font-bold text-[#18A058] uppercase tracking-widest block mb-3">Inquiry Phase</span>
+                <h1 className="text-3xl md:text-4xl font-bold text-[#1a1a2e] leading-snug">
+                  Let&apos;s Build <br />Something <br /><span className="text-[#18A058]">Great.</span>
                 </h1>
               </div>
-              <p className="text-[#64748b] font-medium leading-relaxed max-w-sm text-lg">
+              <p className="text-sm text-[#6b7280] leading-relaxed">
                 Share your vision with us. From enterprise software to integrated AI systems, we provide the architectural precision your project requires.
               </p>
+
+              {/* Checklist */}
+              <div className="space-y-3 pt-4">
+                {["Free initial consultation", "48-hour response time", "Transparent fixed pricing", "Dedicated project manager"].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-[#18A05815] flex items-center justify-center flex-shrink-0">
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <path d="M2 5L4 7L8 3" stroke="#18A058" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                    <span className="text-sm text-[#4b5563]">{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="md:col-span-7 bg-white border border-[#e2e8f0] p-10 md:p-14 rounded-[3rem] shadow-2xl shadow-black/[0.03]">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-12">
+            {/* Right form */}
+            <div className="md:col-span-3 bg-white border border-[#e5e7eb] rounded-2xl p-8 shadow-sm">
+              <form onSubmit={handleSubmit((d) => mutation.mutate(d))} className="space-y-6">
                 {mutation.isError && (
-                  <div className="bg-red-50 text-red-600 p-5 text-[10px] font-bold uppercase tracking-widest border border-red-100 rounded-2xl">
-                    Submission Error: {mutation.error.message}
+                  <div className="bg-red-50 text-red-600 p-4 text-sm rounded-lg border border-red-100">
+                    {mutation.error?.message}
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  <div className="space-y-4 group">
-                    <label className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest group-focus-within:text-[#00b4ff] transition-colors">Your Name</label>
-                    <input 
-                      {...register("name", { required: true })}
-                      placeholder="e.g. John Doe" 
-                      className="w-full border-0 border-b border-[#e2e8f0] bg-transparent py-4 text-sm font-bold focus:ring-0 focus:border-[#00b4ff] transition-all outline-none text-black placeholder:text-[#cbd5e1]"
-                    />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="text-xs font-semibold text-[#6b7280] block mb-1.5">Your Name *</label>
+                    <input {...register("name", { required: true })} placeholder="e.g. John Doe" className={inputClass} />
+                    {errors.name && <p className="text-xs text-red-500 mt-1">Required</p>}
                   </div>
-                  <div className="space-y-4 group">
-                    <label className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest group-focus-within:text-[#00b4ff] transition-colors">Email Address</label>
-                    <input 
-                      {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-                      placeholder="e.g. john@company.com" 
-                      type="email"
-                      className="w-full border-0 border-b border-[#e2e8f0] bg-transparent py-4 text-sm font-bold focus:ring-0 focus:border-[#00b4ff] transition-all outline-none text-black placeholder:text-[#cbd5e1]"
-                    />
+                  <div>
+                    <label className="text-xs font-semibold text-[#6b7280] block mb-1.5">Email Address *</label>
+                    <input {...register("email", { required: true, pattern: /^\S+@\S+$/i })} type="email" placeholder="e.g. john@company.com" className={inputClass} />
+                    {errors.email && <p className="text-xs text-red-500 mt-1">Valid email required</p>}
                   </div>
                 </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  <div className="space-y-4 group">
-                    <label className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest group-focus-within:text-[#00b4ff] transition-colors">Company Name</label>
-                    <input 
-                      {...register("company")}
-                      placeholder="e.g. Acme Corp" 
-                      className="w-full border-0 border-b border-[#e2e8f0] bg-transparent py-4 text-sm font-bold focus:ring-0 focus:border-[#00b4ff] transition-all outline-none text-black placeholder:text-[#cbd5e1]"
-                    />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="text-xs font-semibold text-[#6b7280] block mb-1.5">Company Name</label>
+                    <input {...register("company")} placeholder="e.g. Acme Corp" className={inputClass} />
                   </div>
-                  <div className="space-y-4 group">
-                    <label className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest group-focus-within:text-[#00b4ff] transition-colors">Project Type</label>
-                    <select 
-                      {...register("type", { required: true })}
-                      title="Project Type"
-                      defaultValue=""
-                      className="w-full border-0 border-b border-[#e2e8f0] bg-transparent py-4 text-sm font-bold focus:ring-0 focus:border-[#00b4ff] transition-all outline-none text-black appearance-none"
-                    >
-                      <option value="" disabled>Select Type</option>
+                  <div>
+                    <label className="text-xs font-semibold text-[#6b7280] block mb-1.5">Project Type *</label>
+                    <select {...register("type", { required: true })} defaultValue="" title="Project Type" className={inputClass}>
+                      <option value="" disabled>Select type...</option>
                       <option value="software">Software Development</option>
                       <option value="ai">AI Integration</option>
                       <option value="cloud">Cloud Solutions</option>
-                      <option value="crm">CRM Implementation</option>
+                      <option value="marketing">Digital Marketing</option>
                       <option value="other">Other</option>
                     </select>
                   </div>
                 </div>
 
-                <div className="space-y-6">
-                  <label className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest">Project Budget</label>
-                  <div className="flex flex-wrap gap-4">
+                <div>
+                  <label className="text-xs font-semibold text-[#6b7280] block mb-3">Project Budget</label>
+                  <div className="flex flex-wrap gap-3">
                     {["< ₹10k", "₹10k - ₹50k", "₹50k - ₹100k", "₹100k+"].map((budget) => (
-                      <button
-                        key={budget}
-                        type="button"
-                        onClick={() => setValue("budget", budget)}
-                        className={`px-6 py-3 border text-[10px] font-bold uppercase tracking-widest transition-all rounded-full ${
-                          selectedBudget === budget 
-                          ? "bg-[#00b4ff] text-white border-[#00b4ff] shadow-lg shadow-[#00b4ff20]" 
-                          : "border-[#e2e8f0] text-[#64748b] hover:border-[#00b4ff] hover:text-[#00b4ff]"
-                        }`}
-                      >
+                      <button key={budget} type="button" onClick={() => setValue("budget", budget)}
+                        className={`px-5 py-2 border text-xs font-semibold rounded-lg transition-all ${selectedBudget === budget ? "bg-[#18A058] text-white border-[#18A058]" : "border-[#e5e7eb] text-[#6b7280] hover:border-[#18A058] hover:text-[#18A058]"}`}>
                         {budget}
                       </button>
                     ))}
                   </div>
                 </div>
 
-                <div className="space-y-4 group">
-                  <label className="text-[10px] font-bold text-[#64748b] uppercase tracking-widest group-focus-within:text-[#00b4ff] transition-colors">Project Details</label>
-                  <textarea 
-                    {...register("details", { required: true })}
-                    rows={4}
-                    placeholder="Tell us about your requirements, goals, and timeline..."
-                    className="w-full border-0 border-b border-[#e2e8f0] bg-transparent py-4 text-sm font-medium focus:ring-0 focus:border-[#00b4ff] transition-all outline-none resize-none text-black placeholder:text-[#cbd5e1]"
-                  ></textarea>
+                <div>
+                  <label className="text-xs font-semibold text-[#6b7280] block mb-1.5">Project Details *</label>
+                  <textarea {...register("details", { required: true })} rows={4} placeholder="Tell us about your requirements, goals, and timeline..." className={`${inputClass} resize-none`} />
                 </div>
 
-                <button 
-                  type="submit"
-                  disabled={mutation.isPending}
-                  className="w-full bg-[#00b4ff] text-white py-6 font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-black transition-all duration-500 rounded-full shadow-xl shadow-[#00b4ff20] disabled:opacity-50"
-                >
-                  {mutation.isPending ? "Processing..." : "Submit Project Request"}
+                <button type="submit" disabled={mutation.isPending}
+                  className="w-full bg-[#18A058] text-white text-sm font-semibold py-3.5 rounded-lg hover:bg-[#15803d] transition-all duration-300 disabled:opacity-50">
+                  {mutation.isPending ? "Submitting..." : "Submit Project Request"}
                 </button>
               </form>
             </div>
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
-import "aos/dist/aos.css";
 import "./globals.css";
 
 const inter = Inter({
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
   title: "TwoLeaf Services | Precision Software Architecture",
   description: "Next-generation digital agency specializing in high-performance software, AI systems, and scalable CRM infrastructure.",
   icons: {
-    icon: "/fav-icon.png",
+    icon: "/logofav.png",
   },
 };
 
